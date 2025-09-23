@@ -61,7 +61,22 @@ function handleScanAjax(event) {
         showLoadingState(false);
         if (data.success) {
             showMessage('success', '✓ Escaneo completado.');
-            scanModalBody.innerHTML = `<pre style="font-size:0.95em; background:#222; color:#eee; padding:1em; border-radius:6px; max-height:60vh; overflow:auto;">${escapeHtml(data.scan)}</pre>`;
+            let html = '';
+            // Mostrar tabla de puertos si existen
+            if (Array.isArray(data.ports) && data.ports.length > 0) {
+                html += `<div class="mb-3"><strong>Puertos y servicios detectados:</strong></div>`;
+                html += `<div class="table-responsive"><table class="table table-sm table-dark table-bordered align-middle"><thead><tr><th>Puerto</th><th>Protocolo</th><th>Estado</th><th>Servicio</th><th>Producto</th><th>Versión</th><th>Extra</th></tr></thead><tbody>`;
+                data.ports.forEach(p => {
+                    html += `<tr><td>${p.portid}</td><td>${p.protocol}</td><td>${p.state}</td><td>${escapeHtml(p.service)}</td><td>${escapeHtml(p.product)}</td><td>${escapeHtml(p.version)}</td><td>${escapeHtml(p.extrainfo)}</td></tr>`;
+                });
+                html += `</tbody></table></div>`;
+            } else {
+                html += `<div class="text-warning">No se detectaron puertos abiertos.</div>`;
+            }
+            // Mostrar salida cruda de Nmap
+            html += `<div class="mt-4"><strong>Salida completa de Nmap:</strong></div>`;
+            html += `<pre style="font-size:0.95em; background:#222; color:#eee; padding:1em; border-radius:6px; max-height:60vh; overflow:auto;">${escapeHtml(data.scan)}</pre>`;
+            scanModalBody.innerHTML = html;
             showScanResultBtn.style.display = 'inline-block';
         } else {
             showMessage('error', data.error || 'Error en el escaneo.');

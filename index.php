@@ -20,7 +20,7 @@
             </a>
             <div class="navbar-nav ms-auto">
                 <span class="navbar-text">
-                    <i class="fas fa-code-branch me-1"></i>Iteración 2 - v1.0.2
+                    <i class="fas fa-code-branch me-1"></i>Iteración 3 - v1.0.3
                 </span>
             </div>
         </div>
