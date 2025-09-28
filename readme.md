@@ -10,6 +10,89 @@ Fortify AI es una aplicación web que permite analizar la seguridad de dispositi
 - **Modal de resultados**: El resultado completo del escaneo se muestra en una ventana modal, permitiendo una visualización clara y sin recargar la página.
 - **Flujo 100% dinámico**: El escaneo se realiza mediante AJAX, sin recargar la página, y los resultados solo se muestran tras un escaneo exitoso.
 
+## Instalación y configuración del entorno
+
+### 1. Requisitos previos
+
+- **Linux** (recomendado, probado en Ubuntu/Debian)
+- **Servidor web**: Apache, Nginx o XAMPP/LAMPP con soporte PHP 7+
+- **Nmap** instalado y accesible desde terminal
+- **Python 3.8+** instalado en el sistema
+
+### 2. Instalación de Nmap
+
+```bash
+sudo apt update
+sudo apt install nmap
+```
+
+### 3. Instalación de Python y dependencias IA
+
+```bash
+# Ubícate en la carpeta del proyecto
+cd /opt/lampp/htdocs/tesis
+
+# Crea un entorno virtual de Python
+python3 -m venv venv
+
+# Activa el entorno virtual
+source venv/bin/activate
+
+# Actualiza pip
+pip install --upgrade pip
+
+# Instala la librería de Gemini/Google Generative AI
+pip install google-genai
+```
+
+> **Nota:** Si tienes problemas con el paquete, prueba también:
+> ```
+> pip install google-generativeai
+> ```
+
+### 4. Pruebas de conectividad IA
+
+```bash
+# Verifica que los archivos existan y sean ejecutables
+ls -l /opt/lampp/htdocs/tesis/venv/bin/python
+ls -l /opt/lampp/htdocs/tesis/ia.py
+
+# Prueba la ejecución directa del script IA
+/opt/lampp/htdocs/tesis/venv/bin/python /opt/lampp/htdocs/tesis/ia.py "prueba de conectividad IA"
+```
+
+### 5. Verifica la instalación de la librería
+
+```bash
+/opt/lampp/htdocs/tesis/venv/bin/pip show google-genai
+# o
+/opt/lampp/htdocs/tesis/venv/bin/pip show google-generativeai
+```
+
+### 6. Prueba de mitigación IA tras instalar la librería
+
+```bash
+/opt/lampp/htdocs/tesis/venv/bin/python /opt/lampp/htdocs/tesis/ia.py "prueba de mitigacion IA tras instalar libreria"
+```
+
+### 7. Permisos y configuración de Apache/LAMPP
+
+- Asegúrate de que el usuario del servidor web (por ejemplo, `www-data` o `daemon`) tenga permisos de ejecución sobre los archivos y el entorno virtual.
+- Si usas XAMPP/LAMPP, asegúrate de que el directorio del proyecto tenga permisos adecuados:
+  ```bash
+  sudo chown -R www-data:www-data /opt/lampp/htdocs/tesis
+  sudo chmod -R 755 /opt/lampp/htdocs/tesis
+  ```
+
+### 8. Acceso a la aplicación
+
+- Inicia Apache/XAMPP/LAMPP si no está corriendo.
+- Accede desde tu navegador a:  
+  ```
+  http://localhost/tesis/
+  ```
+
+
 ## Estructura del proyecto
 
 ```

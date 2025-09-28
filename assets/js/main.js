@@ -78,6 +78,20 @@ function handleScanAjax(event) {
             html += `<pre style="font-size:0.95em; background:#222; color:#eee; padding:1em; border-radius:6px; max-height:60vh; overflow:auto;">${escapeHtml(data.scan)}</pre>`;
             scanModalBody.innerHTML = html;
             showScanResultBtn.style.display = 'inline-block';
+            // --- IA: Habilitar botón de mitigación IA y pasar resumen ---
+            if (typeof enableMitigacionBtn === 'function') {
+                let resumen = '';
+                if (Array.isArray(data.ports) && data.ports.length > 0) {
+                    resumen += 'Puertos detectados:\n';
+                    data.ports.forEach(p => {
+                        resumen += `- Puerto ${p.portid}/${p.protocol} (${p.state}) - Servicio: ${p.service} ${p.product} ${p.version} ${p.extrainfo}\n`;
+                    });
+                } else {
+                    resumen += 'No se detectaron puertos abiertos.\n';
+                }
+                resumen += '\nSalida Nmap (resumida):\n' + (data.scan ? data.scan.substring(0, 600) : '');
+                enableMitigacionBtn(resumen);
+            }
         } else {
             showMessage('error', data.error || 'Error en el escaneo.');
         }

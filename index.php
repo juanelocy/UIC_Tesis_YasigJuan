@@ -1,4 +1,5 @@
-<?php // Lógica de escaneo movida a scan.php, solo frontend dinámico ?>
+<?php // Lógica de escaneo movida a scan.php, solo frontend dinámico 
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,7 +10,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             </a>
             <div class="navbar-nav ms-auto">
                 <span class="navbar-text">
-                    <i class="fas fa-code-branch me-1"></i>Iteración 3 - v1.0.3
+                    <i class="fas fa-code-branch me-1"></i>Iteración 4 - v1.0.4
                 </span>
             </div>
         </div>
@@ -85,7 +85,7 @@
                         <div class="features text-center">
                             <button id="showScanResultBtn" type="button" class="btn btn-scan scan-text" data-bs-toggle="modal" data-bs-target="#scanModal" style="display:none;">Ver resultado del escaneo</button>
                         </div>
-                        <!-- Modal para escaneo completo SIEMPRE en el DOM, contenido dinámico -->
+                        <!-- Modal para escaneo completo (SOLO resultado, NO chat IA) -->
                         <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true" data-bs-backdrop="false">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -96,8 +96,9 @@
                                     <div class="modal-body" id="scanModalBody">
                                         <div class="text-muted">No hay resultado de escaneo disponible.</div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <div class="modal-footer flex-column align-items-stretch">
+                                        <button type="button" class="btn btn-primary mb-2" id="btnMitigacionIA" style="display:none;">Obtener recomendaciones de mitigación IA</button>
+                                        <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -133,6 +134,152 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- IA Chat Logic ---
+            let lastScanSummary = null;
+            let iaChatHistory = [];
+
+            // Mostrar botón de mitigación IA tras escaneo
+            function enableMitigacionBtn(scanSummary) {
+                lastScanSummary = scanSummary;
+                document.getElementById('btnMitigacionIA').style.display = 'inline-block';
+            }
+
+            // Mostrar chat IA y enviar resumen del escaneo
+            document.getElementById('btnMitigacionIA').addEventListener('click', function() {
+                document.getElementById('iaChatContainer').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('iaChatContainer').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 200);
+                if (iaChatHistory.length === 0 && lastScanSummary) {
+                    sendToIA('Analiza el siguiente resultado de escaneo de seguridad y dame recomendaciones de mitigación claras y comprensibles para un usuario no técnico.\n\n' + lastScanSummary, true);
+                }
+            });
+
+            // Enviar mensaje a backend IA (procesar.php)
+            function sendToIA(prompt, isAuto = false) {
+                appendIAChat('...', '<i class="fas fa-spinner fa-spin"></i> Esperando respuesta de la IA...');
+                fetch('procesar.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: 'prompt=' + encodeURIComponent(prompt)
+                    })
+                    .then(res => res.text())
+                    .then(html => {
+                        if (iaChatHistory.length > 0 && iaChatHistory[iaChatHistory.length - 1].role === '...') {
+                            iaChatHistory.pop();
+                        }
+                        let iaResp = html;
+                        if (iaResp.length > 10000) iaResp = iaResp.substring(0, 10000) + '...';
+                        iaResp = iaResp.replace(/\n/g, '<br>');
+                        appendIAChat('🤖 IA', iaResp, true);
+                        // Habilitar SIEMPRE el prompt después de cada respuesta
+                        document.getElementById('iaPromptInput').disabled = false;
+                        document.getElementById('iaPromptInput').focus();
+                    })
+                    .catch(() => {
+                        if (iaChatHistory.length > 0 && iaChatHistory[iaChatHistory.length - 1].role === '...') {
+                            iaChatHistory.pop();
+                        }
+                        appendIAChat('🤖 IA', '⚠️ Error al comunicarse con la IA.');
+                        document.getElementById('iaPromptInput').disabled = false;
+                        document.getElementById('iaPromptInput').focus();
+                    });
+            }
+            // Mostrar mensaje en el chat IA
+            function appendIAChat(role, text, isIAHtml = false) {
+                iaChatHistory.push({
+                    role,
+                    text
+                });
+                const chat = document.getElementById('iaChat');
+                let html = '';
+                iaChatHistory.forEach(msg => {
+                    if (msg.role === 'Tú') {
+                        html += `<div class='msg-user'>${escapeHtml(msg.text)}</div>`;
+                    } else if (msg.role === '🤖 IA') {
+                        html += `<div class='msg-ia'>${isIAHtml ? msg.text : escapeHtml(msg.text)}</div>`;
+                    } else {
+                        html += `<div class='msg-ia'>${escapeHtml(msg.text)}</div>`;
+                    }
+                });
+                chat.innerHTML = html;
+                chat.scrollTop = chat.scrollHeight;
+            }
+
+            // Manejar envío del prompt IA por AJAX
+            document.getElementById('iaPromptForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = document.getElementById('iaPromptInput');
+                const prompt = input.value.trim();
+                if (!prompt) return;
+                appendIAChat('Tú', prompt);
+                input.value = '';
+                input.disabled = true;
+                sendToIA(prompt, false);
+            });
+
+            // Deshabilitar prompt hasta que la IA responda la primera vez
+            document.getElementById('iaPromptInput').disabled = true;
+
+            // Función para escapar HTML
+            function escapeHtml(text) {
+                return text.replace(/[&<>"']/g, function(c) {
+                    return {
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#39;'
+                    } [c];
+                });
+            }
+
+            // Exponer enableMitigacionBtn globalmente si lo usas desde main.js
+            window.enableMitigacionBtn = enableMitigacionBtn;
+
+            document.getElementById('scanForm').addEventListener('submit', function() {
+                // Resetear historial y ocultar chat IA
+                iaChatHistory = [];
+                document.getElementById('iaChat').innerHTML = '';
+                document.getElementById('iaChatContainer').style.display = 'none';
+                document.getElementById('iaPromptInput').value = '';
+                document.getElementById('iaPromptInput').disabled = true;
+            });
+
+        });
+    </script>
+    <div id="iaChatContainer" style="display:none; width:100%; max-width:1250px; margin:40px auto 0 auto;" class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="scan-card">
+                <!-- Chat IA fuera de la modal, al final del body -->
+                <div class="card mb-2">
+                    <div class="card-header bg-primary text-white py-2 px-3">
+                        <b>💬 Recomendaciones de Mitigación (IA)</b>
+                    </div>
+                    <div class="card-body bg-light chat-container" id="iaChat" style="height:auto; overflow-y:auto; padding:10px;"></div>
+                    <div class="card-footer p-2">
+                        <form id="iaPromptForm" class="d-flex">
+                            <input type="text" name="prompt" id="iaPromptInput" class="form-control me-2" placeholder="Consulta a la IA sobre mitigación..." autocomplete="off" required>
+                            <button class="btn btn-success">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
 
 </body>
 
