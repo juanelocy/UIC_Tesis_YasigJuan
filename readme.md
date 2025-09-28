@@ -50,7 +50,14 @@ pip install google-genai
 > pip install google-generativeai
 > ```
 
-### 4. Pruebas de conectividad IA
+### 4. Instalación de Nmap
+
+```bash
+source venv/bin/activate
+pip install python-dotenv
+```
+
+### 5. Pruebas de conectividad IA
 
 ```bash
 # Verifica que los archivos existan y sean ejecutables
@@ -61,7 +68,7 @@ ls -l /opt/lampp/htdocs/tesis/ia.py
 /opt/lampp/htdocs/tesis/venv/bin/python /opt/lampp/htdocs/tesis/ia.py "prueba de conectividad IA"
 ```
 
-### 5. Verifica la instalación de la librería
+### 6. Verifica la instalación de la librería
 
 ```bash
 /opt/lampp/htdocs/tesis/venv/bin/pip show google-genai
@@ -69,13 +76,13 @@ ls -l /opt/lampp/htdocs/tesis/ia.py
 /opt/lampp/htdocs/tesis/venv/bin/pip show google-generativeai
 ```
 
-### 6. Prueba de mitigación IA tras instalar la librería
+### 7. Prueba de mitigación IA tras instalar la librería
 
 ```bash
 /opt/lampp/htdocs/tesis/venv/bin/python /opt/lampp/htdocs/tesis/ia.py "prueba de mitigacion IA tras instalar libreria"
 ```
 
-### 7. Permisos y configuración de Apache/LAMPP
+### 8. Permisos y configuración de Apache/LAMPP
 
 - Asegúrate de que el usuario del servidor web (por ejemplo, `www-data` o `daemon`) tenga permisos de ejecución sobre los archivos y el entorno virtual.
 - Si usas XAMPP/LAMPP, asegúrate de que el directorio del proyecto tenga permisos adecuados:
@@ -84,7 +91,7 @@ ls -l /opt/lampp/htdocs/tesis/ia.py
   sudo chmod -R 755 /opt/lampp/htdocs/tesis
   ```
 
-### 8. Acceso a la aplicación
+### 9. Acceso a la aplicación
 
 - Inicia Apache/XAMPP/LAMPP si no está corriendo.
 - Accede desde tu navegador a:  
