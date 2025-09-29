@@ -7,7 +7,7 @@ document.getElementById('ipAddress').addEventListener('input', function (e) {
         if (validateIP(ip)) {
             showMessage('success', '✓ Dirección IP válida');
         } else if (ip.length >= 7) { // Solo mostrar error si hay suficientes caracteres
-            showMessage('error', '✗ Formato de IP inválido. Use el formato xxx.xxx.xxx.xxx');
+            showMessage('error', '✗ Formato de IP inválido');
         }
     } else {
         clearMessage();
@@ -56,50 +56,48 @@ function handleScanAjax(event) {
         method: 'POST',
         body: formData
     })
-    .then(res => res.json())
-    .then(data => {
-        showLoadingState(false);
-        if (data.success) {
-            showMessage('success', '✓ Escaneo completado.');
-            let html = '';
-            // Mostrar tabla de puertos si existen
-            if (Array.isArray(data.ports) && data.ports.length > 0) {
-                html += `<div class="mb-3"><strong>Puertos y servicios detectados:</strong></div>`;
-                html += `<div class="table-responsive"><table class="table table-sm table-dark table-bordered align-middle"><thead><tr><th>Puerto</th><th>Protocolo</th><th>Estado</th><th>Servicio</th><th>Producto</th><th>Versión</th><th>Extra</th></tr></thead><tbody>`;
-                data.ports.forEach(p => {
-                    html += `<tr><td>${p.portid}</td><td>${p.protocol}</td><td>${p.state}</td><td>${escapeHtml(p.service)}</td><td>${escapeHtml(p.product)}</td><td>${escapeHtml(p.version)}</td><td>${escapeHtml(p.extrainfo)}</td></tr>`;
-                });
-                html += `</tbody></table></div>`;
-            } else {
-                html += `<div class="text-warning">No se detectaron puertos abiertos.</div>`;
-            }
-            // Mostrar salida cruda de Nmap
-            html += `<div class="mt-4"><strong>Salida completa de Nmap:</strong></div>`;
-            html += `<pre style="font-size:0.95em; background:#222; color:#eee; padding:1em; border-radius:6px; max-height:60vh; overflow:auto;">${escapeHtml(data.scan)}</pre>`;
-            scanModalBody.innerHTML = html;
-            showScanResultBtn.style.display = 'inline-block';
-            // --- IA: Habilitar botón de mitigación IA y pasar resumen ---
-            if (typeof enableMitigacionBtn === 'function') {
-                let resumen = '';
+        .then(res => res.json())
+        .then(data => {
+            showLoadingState(false);
+            if (data.success) {
+                showMessage('success', '✓ Escaneo completado.');
+                let html = '';
+                // Mostrar tabla de puertos si existen
                 if (Array.isArray(data.ports) && data.ports.length > 0) {
-                    resumen += 'Puertos detectados:\n';
+                    html += `<div class="mb-3"><strong>Puertos y servicios detectados:</strong></div>`;
+                    html += `<div class="table-responsive"><table class="table table-sm table-dark table-bordered align-middle table-hover"><thead><tr><th>Puerto</th><th>Protocolo</th><th>Estado</th><th>Servicio</th><th>Producto</th><th>Versión</th><th>Extra</th></tr></thead><tbody>`;
                     data.ports.forEach(p => {
-                        resumen += `- Puerto ${p.portid}/${p.protocol} (${p.state}) - Servicio: ${p.service} ${p.product} ${p.version} ${p.extrainfo}\n`;
+                        html += `<tr><td>${p.portid}</td><td>${p.protocol}</td><td>${p.state}</td><td>${escapeHtml(p.service)}</td><td>${escapeHtml(p.product)}</td><td>${escapeHtml(p.version)}</td><td>${escapeHtml(p.extrainfo)}</td></tr>`;
                     });
+                    html += `</tbody></table></div>`;
                 } else {
-                    resumen += 'No se detectaron puertos abiertos.\n';
+                    html += `<div class="text-warning">No se detectaron puertos abiertos.</div>`;
                 }
-                resumen += '\nSalida Nmap (resumida):\n' + (data.scan ? data.scan.substring(0, 600) : '');
-                enableMitigacionBtn(resumen);
+
+                scanModalBody.innerHTML = html;
+                showScanResultBtn.style.display = 'inline-block';
+                // --- IA: Habilitar botón de mitigación IA y pasar resumen ---
+                if (typeof enableMitigacionBtn === 'function') {
+                    let resumen = '';
+                    if (Array.isArray(data.ports) && data.ports.length > 0) {
+                        resumen += 'Puertos detectados:\n';
+                        data.ports.forEach(p => {
+                            resumen += `- Puerto ${p.portid}/${p.protocol} (${p.state}) - Servicio: ${p.service} ${p.product} ${p.version} ${p.extrainfo}\n`;
+                        });
+                    } else {
+                        resumen += 'No se detectaron puertos abiertos.\n';
+                    }
+                    resumen += '\nSalida Nmap (resumida):\n' + (data.scan ? data.scan.substring(0, 600) : '');
+                    enableMitigacionBtn(resumen);
+                }
+            } else {
+                showMessage('error', data.error || 'Error en el escaneo.');
             }
-        } else {
-            showMessage('error', data.error || 'Error en el escaneo.');
-        }
-    })
-    .catch(() => {
-        showLoadingState(false);
-        showMessage('error', 'Error de red o del servidor.');
-    });
+        })
+        .catch(() => {
+            showLoadingState(false);
+            showMessage('error', 'Error de red o del servidor.');
+        });
     return false;
 }
 
@@ -114,7 +112,7 @@ window.addEventListener('DOMContentLoaded', function () {
 // Función para escapar HTML en el resultado
 function escapeHtml(text) {
     return text.replace(/[&<>"']/g, function (c) {
-        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
 }
 

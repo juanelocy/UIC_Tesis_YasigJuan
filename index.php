@@ -20,7 +20,7 @@
             </a>
             <div class="navbar-nav ms-auto">
                 <span class="navbar-text">
-                    <i class="fas fa-code-branch me-1"></i>Iteración 4 - v1.0.4
+                    <i class="fas fa-code-branch me-1"></i>Iteración 5 - v1.0.5
                 </span>
             </div>
         </div>
@@ -29,7 +29,7 @@
     <div class="hero-section">
         <div class="container">
             <h1 class="hero-title">
-                <i class="fas fa-robot me-3"></i>Fortify AI
+                <i class="fas fa-shield-alt me-3"></i>Fortify AI
             </h1>
             <p class="hero-subtitle">
                 Sistema Inteligente de Análisis de Amenazas en Redes Corporativas
@@ -39,7 +39,7 @@
                 <div class="col-lg-8">
                     <div class="scan-card">
                         <h3 class="text-white mb-4">
-                            <i class="fas fa-search me-2"></i>Análisis de Seguridad
+                            <i class="fas me-2"></i>Análisis de Seguridad
                         </h3>
 
                         <form id="scanForm" method="POST">
@@ -89,16 +89,16 @@
                         <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true" data-bs-backdrop="false">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header" style="background: linear-gradient(45deg, #3498db, #2ecc71);">
-                                        <h5 class="modal-title" id="scanModalLabel">Resultado del escaneo Nmap</h5>
+                                    <div class="modal-header" style="background: linear-gradient(45deg, var(--secondary-color), #589A8D); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                        <h5 class="modal-title" id="scanModalLabel">Resultado del escaneo</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
-                                    <div class="modal-body" id="scanModalBody">
+                                    <div class="modal-body" style="background: #265C4B;" id="scanModalBody">
                                         <div class="text-muted">No hay resultado de escaneo disponible.</div>
                                     </div>
-                                    <div class="modal-footer flex-column align-items-stretch">
-                                        <button type="button" class="btn btn-primary mb-2" id="btnMitigacionIA" style="display:none;">Obtener recomendaciones de mitigación IA</button>
-                                        <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="modal">Cerrar</button>
+                                    <div class="modal-footer flex-column align-items-stretch" style="background: #146551;">
+                                        <button type="button" class="btn mb-2 btn-open-chat" id="btnMitigacionIA" style="display:none;">Obtener recomendaciones de mitigación IA</button>
+                                        <button type="button" class="btn btn-close-modal mt-2" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
 
                         <!-- Características del sistema -->
                         <div class="features">
-                            <h5 class="text-white mb-3">
+                            <h5 class="text-white mb-3 text-center">
                                 <i class="fas fa-cogs me-2"></i>Características del Sistema
                             </h5>
                             <div class="feature-item">
@@ -114,7 +114,7 @@
                                 Validación automática de direcciones IP
                             </div>
                             <div class="feature-item">
-                                <i class="fas fa-shield-alt feature-icon"></i>
+                                <i class="fas fa-key feature-icon"></i>
                                 Análisis de seguridad basado en IA
                             </div>
                             <div class="feature-item">
@@ -122,7 +122,7 @@
                                 Recomendaciones inteligentes de mitigación
                             </div>
                             <div class="feature-item">
-                                <i class="fas fa-mobile-alt feature-icon"></i>
+                                <i class="fas fa-desktop feature-icon"></i>
                                 Interfaz responsiva y moderna
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                             iaChatHistory.pop();
                         }
                         let iaResp = html;
-                        if (iaResp.length > 10000) iaResp = iaResp.substring(0, 10000) + '...';
+                        if (iaResp.length > 20000) iaResp = iaResp.substring(0, 20000) + '...';
                         iaResp = iaResp.replace(/\n/g, '<br>');
                         appendIAChat('🤖 IA', iaResp, true);
                         // Habilitar SIEMPRE el prompt después de cada respuesta
@@ -260,7 +260,7 @@
             <div class="scan-card">
                 <!-- Chat IA fuera de la modal, al final del body -->
                 <div class="card mb-2">
-                    <div class="card-header bg-primary text-white py-2 px-3">
+                    <div class="card-header text-white text-center py-2 px-3" style="background: linear-gradient(45deg, var(--secondary-color), #589A8D); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                         <b>💬 Recomendaciones de Mitigación (IA)</b>
                     </div>
                     <div class="card-body bg-light chat-container" id="iaChat" style="height:auto; overflow-y:auto; padding:10px;"></div>
