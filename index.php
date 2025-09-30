@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortify AI - Análisis de Amenazas</title>
+    <link rel="icon" href="assets/img/escudo-blanco.svg">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -85,24 +86,7 @@
                         <div class="features text-center">
                             <button id="showScanResultBtn" type="button" class="btn btn-scan scan-text" data-bs-toggle="modal" data-bs-target="#scanModal" style="display:none;">Ver resultado del escaneo</button>
                         </div>
-                        <!-- Modal para escaneo completo (SOLO resultado, NO chat IA) -->
-                        <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true" data-bs-backdrop="false">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background: linear-gradient(45deg, var(--secondary-color), #589A8D); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                                        <h5 class="modal-title" id="scanModalLabel">Resultado del escaneo</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                    </div>
-                                    <div class="modal-body" style="background: #265C4B;" id="scanModalBody">
-                                        <div class="text-muted">No hay resultado de escaneo disponible.</div>
-                                    </div>
-                                    <div class="modal-footer flex-column align-items-stretch" style="background: #146551;">
-                                        <button type="button" class="btn mb-2 btn-open-chat" id="btnMitigacionIA" style="display:none;">Obtener recomendaciones de mitigación IA</button>
-                                        <button type="button" class="btn btn-close-modal mt-2" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <!-- Características del sistema -->
                         <div class="features">
@@ -154,6 +138,10 @@
                         behavior: 'smooth'
                     });
                 }, 200);
+                // Cierra la modal si está abierta
+                const scanModal = bootstrap.Modal.getInstance(document.getElementById('scanModal'));
+                if (scanModal) scanModal.hide();
+
                 if (iaChatHistory.length === 0 && lastScanSummary) {
                     sendToIA('Analiza el siguiente resultado de escaneo de seguridad y dame recomendaciones de mitigación claras y comprensibles para un usuario no técnico.\n\n' + lastScanSummary, true);
                 }
@@ -200,17 +188,49 @@
                 });
                 const chat = document.getElementById('iaChat');
                 let html = '';
-                iaChatHistory.forEach(msg => {
+                iaChatHistory.forEach((msg, idx) => {
                     if (msg.role === 'Tú') {
                         html += `<div class='msg-user'>${escapeHtml(msg.text)}</div>`;
                     } else if (msg.role === '🤖 IA') {
-                        html += `<div class='msg-ia'>${isIAHtml ? msg.text : escapeHtml(msg.text)}</div>`;
+                        // Si es el último mensaje IA, animar
+                        if (idx === iaChatHistory.length - 1) {
+                            html += `<div class='msg-ia' id="ia-typewriter"></div>`;
+                        } else {
+                            html += `<div class='msg-ia'>${isIAHtml ? msg.text : escapeHtml(msg.text)}</div>`;
+                        }
                     } else {
                         html += `<div class='msg-ia'>${escapeHtml(msg.text)}</div>`;
                     }
                 });
                 chat.innerHTML = html;
                 chat.scrollTop = chat.scrollHeight;
+
+                // Animación typewriter solo para el último mensaje IA
+                const lastMsg = iaChatHistory[iaChatHistory.length - 1];
+                if (lastMsg && lastMsg.role === '🤖 IA') {
+                    const el = document.getElementById('ia-typewriter');
+                    if (el) {
+                        let i = 0;
+                        const content = isIAHtml ? lastMsg.text.replace(/<br>/g, '\n') : escapeHtml(lastMsg.text);
+
+                        function typeWriter() {
+                            el.innerHTML = isIAHtml ?
+                                content.slice(0, i).replace(/\n/g, '<br>') :
+                                content.slice(0, i);
+                            i++;
+                            chat.scrollTop = chat.scrollHeight; // <-- Mantiene el scroll abajo
+                            if (i <= content.length) {
+                                setTimeout(typeWriter, 8);
+                            } else {
+                                el.innerHTML = isIAHtml ?
+                                    content.replace(/\n/g, '<br>') :
+                                    content;
+                                chat.scrollTop = chat.scrollHeight;
+                            }
+                        }
+                        typeWriter();
+                    }
+                }
             }
 
             // Manejar envío del prompt IA por AJAX
@@ -278,9 +298,38 @@
         </div>
     </div>
 
+    <!-- Modal para escaneo completo (SOLO resultado, NO chat IA) -->
+    <div class="modal fade justify-content-center" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true" data-bs-backdrop="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(45deg, var(--secondary-color), #589A8D); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <h5 class="modal-title" id="scanModalLabel">Resultado del escaneo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" style="background: #265C4B;" id="scanModalBody">
+                    <div class="text-muted">No hay resultado de escaneo disponible.</div>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch" style="background: #146551;">
+                    <button type="button" class="btn mb-2 btn-open-chat" id="btnMitigacionIA" style="display:none;">
+                        Obtener recomendaciones de mitigación IA
+                    </button>
+                    <button type="button" class="btn btn-close-modal mt-2" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Agrega esto justo antes del cierre de </body> en index.php -->
 
-
+    <footer class="footer mt-5 py-4" style="background: linear-gradient(90deg, #265C4B 60%, #146551 100%); color: #fff; text-align: center; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+        <div class="container">
+            <small>
+                Trabajo de Unidad de Integración Curricular por <b>Juan Carlos Yasig</b> <br>
+                Ingeniería en Tecnologías de la Información <br>Universidad de las Fuerzas Armadas ESPE Sede Santo Domingo<br>
+                <i class="fas fa-phone-alt"></i> 0967212283
+            </small>
+        </div>
+    </footer>
 </body>
 
 </html>

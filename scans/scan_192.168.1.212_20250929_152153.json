@@ -1,0 +1,34 @@
+{
+    "ip": "192.168.1.212",
+    "timestamp": "2025-09-29_15-21-53",
+    "ports": [
+        {
+            "portid": "445",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "microsoft-ds",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "1433",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ms-sql-s",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "3306",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "mysql",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        }
+    ],
+    "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:\/\/\/usr\/share\/nmap\/nmap.xsl\" type=\"text\/xsl\"?>\n<!-- Nmap 7.95 scan initiated Mon Sep 29 08:21:31 2025 as: \/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 192.168.1.212 -->\n<nmaprun scanner=\"nmap\" args=\"\/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 192.168.1.212\" start=\"1759152091\" startstr=\"Mon Sep 29 08:21:31 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"100\" services=\"7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<verbose level=\"0\"\/>\n<debugging level=\"0\"\/>\n<hosthint><status state=\"up\" reason=\"arp-response\" reason_ttl=\"0\"\/>\n<address addr=\"192.168.1.212\" addrtype=\"ipv4\"\/>\n<address addr=\"C0:E4:34:81:17:0D\" addrtype=\"mac\" vendor=\"AzureWave Technology\"\/>\n<hostnames>\n<\/hostnames>\n<\/hosthint>\n<host starttime=\"1759152093\" endtime=\"1759152112\"><status state=\"up\" reason=\"arp-response\" reason_ttl=\"0\"\/>\n<address addr=\"192.168.1.212\" addrtype=\"ipv4\"\/>\n<address addr=\"C0:E4:34:81:17:0D\" addrtype=\"mac\" vendor=\"AzureWave Technology\"\/>\n<hostnames>\n<hostname name=\"192.168.1.212\" type=\"PTR\"\/>\n<\/hostnames>\n<ports><extraports state=\"filtered\" count=\"97\">\n<extrareasons reason=\"no-response\" count=\"97\" proto=\"tcp\" ports=\"7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-444,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<\/extraports>\n<port protocol=\"tcp\" portid=\"445\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"128\"\/><service name=\"microsoft-ds\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"1433\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"128\"\/><service name=\"ms-sql-s\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"3306\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"128\"\/><service name=\"mysql\" method=\"table\" conf=\"3\"\/><\/port>\n<\/ports>\n<times srtt=\"684910\" rttvar=\"521697\" to=\"2771698\"\/>\n<\/host>\n<runstats><finished time=\"1759152113\" timestr=\"Mon Sep 29 08:21:53 2025\" summary=\"Nmap done at Mon Sep 29 08:21:53 2025; 1 IP address (1 host up) scanned in 21.16 seconds\" elapsed=\"21.16\" exit=\"success\"\/><hosts up=\"1\" down=\"0\" total=\"1\"\/>\n<\/runstats>\n<\/nmaprun>\n"
+}

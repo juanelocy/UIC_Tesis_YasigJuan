@@ -1,0 +1,169 @@
+{
+    "ip": "192.168.1.59",
+    "timestamp": "2025-09-30_03-02-25",
+    "ports": [
+        {
+            "portid": "21",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ftp",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "22",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ssh",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "23",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "telnet",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "25",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "smtp",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "53",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "domain",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "80",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "http",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "111",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "rpcbind",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "139",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "netbios-ssn",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "445",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "microsoft-ds",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "513",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "login",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "514",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "shell",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "2049",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "nfs",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "2121",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ccproxy-ftp",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "3306",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "mysql",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "5432",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "postgresql",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "5900",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "vnc",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "6000",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "X11",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "8009",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ajp13",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        }
+    ],
+    "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:\/\/\/usr\/share\/nmap\/nmap.xsl\" type=\"text\/xsl\"?>\n<!-- Nmap 7.95 scan initiated Mon Sep 29 20:02:24 2025 as: \/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 192.168.1.59 -->\n<nmaprun scanner=\"nmap\" args=\"\/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 192.168.1.59\" start=\"1759194144\" startstr=\"Mon Sep 29 20:02:24 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"100\" services=\"7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<verbose level=\"0\"\/>\n<debugging level=\"0\"\/>\n<hosthint><status state=\"up\" reason=\"arp-response\" reason_ttl=\"0\"\/>\n<address addr=\"192.168.1.59\" addrtype=\"ipv4\"\/>\n<address addr=\"08:00:27:24:B5:BF\" addrtype=\"mac\" vendor=\"PCS Systemtechnik\/Oracle VirtualBox virtual NIC\"\/>\n<hostnames>\n<\/hostnames>\n<\/hosthint>\n<host starttime=\"1759194145\" endtime=\"1759194145\"><status state=\"up\" reason=\"arp-response\" reason_ttl=\"0\"\/>\n<address addr=\"192.168.1.59\" addrtype=\"ipv4\"\/>\n<address addr=\"08:00:27:24:B5:BF\" addrtype=\"mac\" vendor=\"PCS Systemtechnik\/Oracle VirtualBox virtual NIC\"\/>\n<hostnames>\n<\/hostnames>\n<ports><extraports state=\"closed\" count=\"82\">\n<extrareasons reason=\"reset\" count=\"82\" proto=\"tcp\" ports=\"7,9,13,26,37,79,81,88,106,110,113,119,135,143-144,179,199,389,427,443-444,465,515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2717,3000,3128,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5631,5666,5800,6001,6646,7070,8000,8008,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<\/extraports>\n<port protocol=\"tcp\" portid=\"21\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"ftp\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"22\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"ssh\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"23\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"telnet\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"25\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"smtp\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"53\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"domain\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"80\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"http\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"111\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"rpcbind\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"139\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"netbios-ssn\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"445\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"microsoft-ds\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"513\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"login\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"514\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"shell\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"2049\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"nfs\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"2121\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"ccproxy-ftp\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"3306\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"mysql\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"5432\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"postgresql\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"5900\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"vnc\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"6000\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"X11\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"8009\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"64\"\/><service name=\"ajp13\" method=\"table\" conf=\"3\"\/><\/port>\n<\/ports>\n<times srtt=\"93\" rttvar=\"0\" to=\"100000\"\/>\n<\/host>\n<runstats><finished time=\"1759194145\" timestr=\"Mon Sep 29 20:02:25 2025\" summary=\"Nmap done at Mon Sep 29 20:02:25 2025; 1 IP address (1 host up) scanned in 0.35 seconds\" elapsed=\"0.35\" exit=\"success\"\/><hosts up=\"1\" down=\"0\" total=\"1\"\/>\n<\/runstats>\n<\/nmaprun>\n"
+}

@@ -272,3 +272,119 @@ estilos del chat con la IA
     margin-bottom: 10px;
     white-space: pre-wrap;
 }
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.12);
+}
+
+/* estilos de mi chat ia*/
+
+
+/* Estilos mejorados para el chat IA usando la paleta del proyecto */
+#iaChatContainer {
+    animation: fadeInUp 0.6s cubic-bezier(.23, 1.01, .32, 1) both;
+    background: rgba(20, 101, 81, 0.15);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(38, 92, 75, 0.25);
+    padding: 20px 0 10px 0;
+}
+
+.msg-user {
+    max-width: 75%;
+    margin-left: auto;
+    background: linear-gradient(90deg, #007566 60%, #589A8D 100%);
+    color: #fff;
+    border-radius: 1.2rem 1.2rem 0 1.2rem;
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(8, 54, 40, 0.08);
+    border: 2px solid #8FC1B5;
+    text-align: left;
+    word-break: break-word;
+}
+
+.msg-ia {
+    max-width: 75%;
+    margin-right: auto;
+    background: linear-gradient(90deg, #8FC1B5 60%, #265C4B 100%);
+    color: #222;
+    border-radius: 1.2rem 1.2rem 1.2rem 0;
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(38, 92, 75, 0.08);
+    border: 2px solid #589A8D;
+    text-align: left;
+    word-break: break-word;
+}
+
+#iaChat {
+    background: rgba(255,255,255,0.85);
+    border-radius: 12px;
+    min-height: 180px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 18px 10px 10px 10px;
+    margin-bottom: 0;
+}
+
+#iaPromptInput {
+    border-radius: 18px;
+    border: 2px solid #8FC1B5;
+    background: #fff;
+    font-size: 1.08rem;
+    padding: 10px 18px;
+    transition: border-color 0.2s;
+}
+#iaPromptInput:focus {
+    border-color: #007566;
+    outline: none;
+}
+
+#iaPromptForm button {
+    border-radius: 18px;
+    background: linear-gradient(90deg, #265C4B 60%, #146551 100%);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 10px 28px;
+    margin-left: 10px;
+    transition: background 0.2s;
+}
+#iaPromptForm button:hover {
+    background: linear-gradient(90deg, #146551 60%, #265C4B 100%);
+}
+
+/* Forzar backdrop detrás y modal encima */
+.modal-backdrop.show {
+    background: rgba(0, 0, 0, 0.197) !important;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 1 !important;
+    z-index: 1040 !important;
+    position: fixed !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color : white;
+}
+
+.modal {
+    z-index: 1050 !important;
+    position: fixed !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color : white;
+}
+
+.modal-dialog {
+    z-index: 1060 !important;
+    position: relative !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color : white;
+}
