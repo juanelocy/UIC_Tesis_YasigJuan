@@ -20,14 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Construir el prompt contextualizado
-    $prompt_context =
+    /*$prompt_context =
         "IMPORTANTE: Eres un asistente experto en ciberseguridad y mitigación de vulnerabilidades. ".
         "Solo puedes responder preguntas relacionadas con mitigación, seguridad informática, escaneo de puertos, servicios y CVEs. ".
         "Si el usuario pregunta algo fuera de ese ámbito, responde: 'Solo puedo responder consultas sobre ciberseguridad y mitigación de vulnerabilidades.'\n\n".
         "Resumen del escaneo:\n$scan_summary\n\n".
         "Historial de la conversación:\n$historial_txt\n".
         "Pregunta del usuario:\n$prompt";
-
+    */
+    
+    // Prompt frío y técnico
+    $prompt_context =
+        "Eres un asistente técnico de ciberseguridad. Responde de forma concisa, precisa y fría, solo lo necesario. ".
+        "Solo responde sobre mitigación, seguridad informática, escaneo de puertos, servicios y CVEs. ".
+        "Si la consulta es irrelevante, responde: 'Solo consultas de ciberseguridad y mitigación.'\n\n".
+        "Resumen del escaneo (JSON):\n$scan_summary\n\n".
+        "Historial de la conversación:\n$historial_txt\n".
+        "Pregunta del usuario:\n$prompt";
     // Ejecutar Python y capturar salida limpia
     $command = __DIR__ . "/venv/bin/python ia.py " . escapeshellarg($prompt_context);
     $output = shell_exec($command . " 2>&1"); // Captura errores también

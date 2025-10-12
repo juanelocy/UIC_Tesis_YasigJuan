@@ -1,0 +1,79 @@
+{
+    "ip": "8.8.8.8",
+    "timestamp": "2025-10-07_16-54-39",
+    "ports": [
+        {
+            "portid": "21",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "ftp",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "53",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "domain",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "80",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "http",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "110",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "pop3",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "113",
+            "protocol": "tcp",
+            "state": "closed",
+            "service": "ident",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "143",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "imap",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "443",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "https",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        },
+        {
+            "portid": "2000",
+            "protocol": "tcp",
+            "state": "open",
+            "service": "cisco-sccp",
+            "product": "",
+            "version": "",
+            "extrainfo": ""
+        }
+    ],
+    "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:\/\/\/usr\/share\/nmap\/nmap.xsl\" type=\"text\/xsl\"?>\n<!-- Nmap 7.95 scan initiated Tue Oct  7 09:54:36 2025 as: \/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 8.8.8.8 -->\n<nmaprun scanner=\"nmap\" args=\"\/usr\/lib\/nmap\/nmap -&#45;privileged -F -oX - 8.8.8.8\" start=\"1759848876\" startstr=\"Tue Oct  7 09:54:36 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"100\" services=\"7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<verbose level=\"0\"\/>\n<debugging level=\"0\"\/>\n<hosthint><status state=\"up\" reason=\"unknown-response\" reason_ttl=\"0\"\/>\n<address addr=\"8.8.8.8\" addrtype=\"ipv4\"\/>\n<hostnames>\n<\/hostnames>\n<\/hosthint>\n<host starttime=\"1759848876\" endtime=\"1759848879\"><status state=\"up\" reason=\"syn-ack\" reason_ttl=\"61\"\/>\n<address addr=\"8.8.8.8\" addrtype=\"ipv4\"\/>\n<hostnames>\n<hostname name=\"dns.google\" type=\"PTR\"\/>\n<\/hostnames>\n<ports><extraports state=\"filtered\" count=\"92\">\n<extrareasons reason=\"no-response\" count=\"92\" proto=\"tcp\" ports=\"7,9,13,22-23,25-26,37,79,81,88,106,111,119,135,139,144,179,199,389,427,444-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"\/>\n<\/extraports>\n<port protocol=\"tcp\" portid=\"21\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"61\"\/><service name=\"ftp\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"53\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"114\"\/><service name=\"domain\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"80\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"61\"\/><service name=\"http\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"110\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"61\"\/><service name=\"pop3\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"113\"><state state=\"closed\" reason=\"reset\" reason_ttl=\"64\"\/><service name=\"ident\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"143\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"61\"\/><service name=\"imap\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"443\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"61\"\/><service name=\"https\" method=\"table\" conf=\"3\"\/><\/port>\n<port protocol=\"tcp\" portid=\"2000\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"58\"\/><service name=\"cisco-sccp\" method=\"table\" conf=\"3\"\/><\/port>\n<\/ports>\n<times srtt=\"50207\" rttvar=\"42306\" to=\"219431\"\/>\n<\/host>\n<runstats><finished time=\"1759848879\" timestr=\"Tue Oct  7 09:54:39 2025\" summary=\"Nmap done at Tue Oct  7 09:54:39 2025; 1 IP address (1 host up) scanned in 2.61 seconds\" elapsed=\"2.61\" exit=\"success\"\/><hosts up=\"1\" down=\"0\" total=\"1\"\/>\n<\/runstats>\n<\/nmaprun>\n"
+}

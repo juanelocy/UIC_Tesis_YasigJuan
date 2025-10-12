@@ -1,4 +1,4 @@
-import sys
+'''import sys
 import os
 import csv
 from dotenv import load_dotenv
@@ -81,4 +81,80 @@ response = client.models.generate_content(
     contents=contexto
 )
 
+print(response.text.strip())'''
+import sys
+import os
+import csv
+import json
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+api_key = os.getenv("GOOGLE_GENAI_API_KEY")
+if not api_key:
+    print("ERROR: No se encontró la variable GOOGLE_GENAI_API_KEY en el entorno.")
+    sys.exit(1)
+client = genai.Client(api_key=api_key)
+
+prompt = sys.argv[1]
+
+def load_csv_dict(path):
+    data = []
+    if os.path.exists(path):
+        with open(path, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                data.append(row)
+    return data
+
+cve_data = load_csv_dict(os.path.join(os.path.dirname(__file__), 'dataset', 'cve.csv'))
+
+# --- Extraer resumen, historial y pregunta ---
+import re
+resumen = ""
+historial = ""
+pregunta = ""
+if "Resumen del escaneo (JSON):" in prompt and "Historial de la conversación:" in prompt and "Pregunta del usuario:" in prompt:
+    resumen = prompt.split("Resumen del escaneo (JSON):")[1].split("Historial de la conversación:")[0].strip()
+    historial = prompt.split("Historial de la conversación:")[1].split("Pregunta del usuario:")[0].strip()
+    pregunta = prompt.split("Pregunta del usuario:")[1].strip()
+else:
+    pregunta = prompt
+
+# --- Parsear JSON del escaneo ---
+cves_encontrados = []
+try:
+    scan_json = json.loads(resumen)
+    cves_encontrados = scan_json.get('cves', [])
+except Exception:
+    pass
+
+def detalles_cves(cve_ids):
+    detalles = []
+    for cve_id in cve_ids:
+        for cve in cve_data:
+            if cve.get('cve_id', '') == cve_id:
+                detalles.append(f"{cve_id}: {cve.get('summary', '')} (CVSS: {cve.get('cvss', '')})")
+                break
+    return detalles
+
+detalles = detalles_cves(cves_encontrados)
+
+# --- Contexto frío y técnico con historial ---
+contexto = (
+    "Eres un asistente técnico de ciberseguridad. Responde de forma concisa, precisa y fría, solo lo necesario. "
+    "Solo responde sobre mitigación, seguridad informática, escaneo de puertos, servicios y CVEs. "
+    "Si la consulta es irrelevante, responde: 'Solo consultas de ciberseguridad y mitigación.'\n\n"
+    f"Resumen del escaneo (JSON):\n{resumen}\n\n"
+    f"Historial de la conversación:\n{historial}\n\n"
+)
+if detalles:
+    contexto += "CVEs detectados y detalles técnicos:\n"
+    contexto += "\n".join(detalles[:10]) + "\n\n"
+contexto += f"Pregunta del usuario:\n{pregunta}"
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=contexto
+)
 print(response.text.strip())
