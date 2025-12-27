@@ -66,7 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ipAddress'])) {
             'success' => true,
             'scan' => $output,
             'ports' => $puertos,
-            'cves' => $cves_detectados
+            'cves' => $cves_detectados,
+            'ip' => $ip, // <-- agrega esto
+            'timestamp' => date('Y-m-d H:i:s') // <-- agrega esto
         ]);
         exit;
     } else {

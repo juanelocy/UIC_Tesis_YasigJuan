@@ -1,0 +1,53 @@
+# Nmap 7.95 scan initiated Thu Nov 20 08:59:59 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251120_145959 8.8.8.8
+Nmap scan report for dns.google (8.8.8.8)
+Host is up (0.014s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE    VERSION
+53/tcp  open  tcpwrapped
+443/tcp open  ssl/https  scaffolding on HTTPServer2
+|_http-server-header: scaffolding on HTTPServer2
+| fingerprint-strings: 
+|   SIPOptions: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Type: text/html; charset=UTF-8
+|     Referrer-Policy: no-referrer
+|     Content-Length: 1555
+|     Date: Thu, 20 Nov 2025 14:00:53 GMT
+|     <!DOCTYPE html>
+|     <html lang=en>
+|     <meta charset=utf-8>
+|     <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+|     <title>Error 400 (Bad Request)!!1</title>
+|     <style>
+|     *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x
+|   TerminalServerCookie: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 54
+|     Content-Type: text/html; charset=UTF-8
+|     Date: Thu, 20 Nov 2025 14:00:34 GMT
+|_    <html><title>Error 400 (Bad Request)!!1</title></html>
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port443-TCP:V=7.95%T=SSL%I=7%D=11/20%Time=691F1F02%P=x86_64-pc-linux-gn
+SF:u%r(TerminalServerCookie,B3,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nCont
+SF:ent-Length:\x2054\r\nContent-Type:\x20text/html;\x20charset=UTF-8\r\nDa
+SF:te:\x20Thu,\x2020\x20Nov\x202025\x2014:00:34\x20GMT\r\n\r\n<html><title
+SF:>Error\x20400\x20\(Bad\x20Request\)!!1</title></html>")%r(SIPOptions,6B
+SF:0,"HTTP/1\.0\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/html;\x2
+SF:0charset=UTF-8\r\nReferrer-Policy:\x20no-referrer\r\nContent-Length:\x2
+SF:01555\r\nDate:\x20Thu,\x2020\x20Nov\x202025\x2014:00:53\x20GMT\r\n\r\n<
+SF:!DOCTYPE\x20html>\n<html\x20lang=en>\n\x20\x20<meta\x20charset=utf-8>\n
+SF:\x20\x20<meta\x20name=viewport\x20content=\"initial-scale=1,\x20minimum
+SF:-scale=1,\x20width=device-width\">\n\x20\x20<title>Error\x20400\x20\(Ba
+SF:d\x20Request\)!!1</title>\n\x20\x20<style>\n\x20\x20\x20\x20\*{margin:0
+SF:;padding:0}html,code{font:15px/22px\x20arial,sans-serif}html{background
+SF::#fff;color:#222;padding:15px}body{margin:7%\x20auto\x200;max-width:390
+SF:px;min-height:180px;padding:30px\x200\x2015px}\*\x20>\x20body{backgroun
+SF:d:url\(//www\.google\.com/images/errors/robot\.png\)\x20100%\x205px\x20
+SF:no-repeat;padding-right:205px}p{margin:11px\x200\x2022px;overflow:hidde
+SF:n}ins{color:#777;text-decoration:none}a\x20img{border:0}@media\x20scree
+SF:n\x20and\x20\(max-width:772px\){body{background:none;margin-top:0;max-w
+SF:idth:none;padding-right:0}}#logo{background:url\(//www\.google\.com/ima
+SF:ges/branding/googlelogo/1x");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Nov 20 09:01:24 2025 -- 1 IP address (1 host up) scanned in 85.56 seconds

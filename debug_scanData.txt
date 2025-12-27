@@ -1,0 +1,11 @@
+Puertos detectados:
+- Puerto 53/tcp (open) - Servicio: tcpwrapped   
+- Puerto 443/tcp (open) - Servicio: https HTTP server (unknown)  
+
+Salida Nmap (resumida):
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Thu Nov 20 09:20:10 2025 as: /usr/lib/nmap/nmap -&#45;privileged -&#45;script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251120_152010 8.8.8.8 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -&#45;privileged -&#45;script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251120_152010 8.8.8.8" start="1763648410" startstr="Thu Nov 20 09:20:10 2025" version="7.95" xmloutputversion="1.05">
+<

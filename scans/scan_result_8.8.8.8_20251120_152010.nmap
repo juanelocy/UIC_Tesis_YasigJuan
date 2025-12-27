@@ -1,0 +1,93 @@
+# Nmap 7.95 scan initiated Thu Nov 20 09:20:10 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251120_152010 8.8.8.8
+Nmap scan report for dns.google (8.8.8.8)
+Host is up (0.021s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE    VERSION
+53/tcp  open  tcpwrapped
+443/tcp open  ssl/https  HTTP server (unknown)
+| http-server-header: 
+|   HTTP server (unknown)
+|_  scaffolding on HTTPServer2
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.0 302 Found
+|     X-Content-Type-Options: nosniff
+|     Access-Control-Allow-Origin: *
+|     Location: https://dns.google/nice%20ports%2C/Trinity.txt.bak
+|     Date: Thu, 20 Nov 2025 14:20:28 GMT
+|     Content-Type: text/html; charset=UTF-8
+|     Server: HTTP server (unknown)
+|     Content-Length: 247
+|     X-XSS-Protection: 0
+|     X-Frame-Options: SAMEORIGIN
+|     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+|     <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+|     <TITLE>302 Moved</TITLE></HEAD><BODY>
+|     <H1>302 Moved</H1>
+|     document has moved
+|     HREF="https://dns.google/nice%20ports%2C/Trinity.txt.bak">here</A>.
+|     </BODY></HTML>
+|   GetRequest: 
+|     HTTP/1.0 302 Found
+|     X-Content-Type-Options: nosniff
+|     Access-Control-Allow-Origin: *
+|     Location: https://dns.google/
+|     Date: Thu, 20 Nov 2025 14:20:27 GMT
+|     Content-Type: text/html; charset=UTF-8
+|     Server: HTTP server (unknown)
+|     Content-Length: 216
+|     X-XSS-Protection: 0
+|     X-Frame-Options: SAMEORIGIN
+|     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+|     <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+|     <TITLE>302 Moved</TITLE></HEAD><BODY>
+|     <H1>302 Moved</H1>
+|     document has moved
+|     HREF="https://dns.google/">here</A>.
+|     </BODY></HTML>
+|   TerminalServer: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 54
+|     Content-Type: text/html; charset=UTF-8
+|     Date: Thu, 20 Nov 2025 14:21:06 GMT
+|     <html><title>Error 400 (Bad Request)!!1</title></html>
+|   ms-sql-s: 
+|     HTTP/1.0 400 Bad Request
+|     Content-Length: 54
+|     Content-Type: text/html; charset=UTF-8
+|     Date: Thu, 20 Nov 2025 14:21:24 GMT
+|_    <html><title>Error 400 (Bad Request)!!1</title></html>
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port443-TCP:V=7.95%T=SSL%I=7%D=11/20%Time=691F23AC%P=x86_64-pc-linux-gn
+SF:u%r(GetRequest,23A,"HTTP/1\.0\x20302\x20Found\r\nX-Content-Type-Options
+SF::\x20nosniff\r\nAccess-Control-Allow-Origin:\x20\*\r\nLocation:\x20http
+SF:s://dns\.google/\r\nDate:\x20Thu,\x2020\x20Nov\x202025\x2014:20:27\x20G
+SF:MT\r\nContent-Type:\x20text/html;\x20charset=UTF-8\r\nServer:\x20HTTP\x
+SF:20server\x20\(unknown\)\r\nContent-Length:\x20216\r\nX-XSS-Protection:\
+SF:x200\r\nX-Frame-Options:\x20SAMEORIGIN\r\nAlt-Svc:\x20h3=\":443\";\x20m
+SF:a=2592000,h3-29=\":443\";\x20ma=2592000\r\n\r\n<HTML><HEAD><meta\x20htt
+SF:p-equiv=\"content-type\"\x20content=\"text/html;charset=utf-8\">\n<TITL
+SF:E>302\x20Moved</TITLE></HEAD><BODY>\n<H1>302\x20Moved</H1>\nThe\x20docu
+SF:ment\x20has\x20moved\n<A\x20HREF=\"https://dns\.google/\">here</A>\.\r\
+SF:n</BODY></HTML>\r\n")%r(FourOhFourRequest,278,"HTTP/1\.0\x20302\x20Foun
+SF:d\r\nX-Content-Type-Options:\x20nosniff\r\nAccess-Control-Allow-Origin:
+SF:\x20\*\r\nLocation:\x20https://dns\.google/nice%20ports%2C/Trinity\.txt
+SF:\.bak\r\nDate:\x20Thu,\x2020\x20Nov\x202025\x2014:20:28\x20GMT\r\nConte
+SF:nt-Type:\x20text/html;\x20charset=UTF-8\r\nServer:\x20HTTP\x20server\x2
+SF:0\(unknown\)\r\nContent-Length:\x20247\r\nX-XSS-Protection:\x200\r\nX-F
+SF:rame-Options:\x20SAMEORIGIN\r\nAlt-Svc:\x20h3=\":443\";\x20ma=2592000,h
+SF:3-29=\":443\";\x20ma=2592000\r\n\r\n<HTML><HEAD><meta\x20http-equiv=\"c
+SF:ontent-type\"\x20content=\"text/html;charset=utf-8\">\n<TITLE>302\x20Mo
+SF:ved</TITLE></HEAD><BODY>\n<H1>302\x20Moved</H1>\nThe\x20document\x20has
+SF:\x20moved\n<A\x20HREF=\"https://dns\.google/nice%20ports%2C/Trinity\.tx
+SF:t\.bak\">here</A>\.\r\n</BODY></HTML>\r\n")%r(TerminalServer,B3,"HTTP/1
+SF:\.0\x20400\x20Bad\x20Request\r\nContent-Length:\x2054\r\nContent-Type:\
+SF:x20text/html;\x20charset=UTF-8\r\nDate:\x20Thu,\x2020\x20Nov\x202025\x2
+SF:014:21:06\x20GMT\r\n\r\n<html><title>Error\x20400\x20\(Bad\x20Request\)
+SF:!!1</title></html>")%r(ms-sql-s,B3,"HTTP/1\.0\x20400\x20Bad\x20Request\
+SF:r\nContent-Length:\x2054\r\nContent-Type:\x20text/html;\x20charset=UTF-
+SF:8\r\nDate:\x20Thu,\x2020\x20Nov\x202025\x2014:21:24\x20GMT\r\n\r\n<html
+SF:><title>Error\x20400\x20\(Bad\x20Request\)!!1</title></html>");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Nov 20 09:21:31 2025 -- 1 IP address (1 host up) scanned in 81.73 seconds

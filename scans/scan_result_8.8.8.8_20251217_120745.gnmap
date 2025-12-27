@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Wed Dec 17 12:07:39 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251217_120745 8.8.8.8
+Host: 8.8.8.8 (dns.google)	Status: Up
+Host: 8.8.8.8 (dns.google)	Ports: 21/open/tcp//ftp?///, 53/open/tcp//tcpwrapped///, 80/open/tcp//http?///, 110/open/tcp//pop3?///, 113/closed/tcp//ident///, 143/open/tcp//imap?///, 443/open/tcp//ssl|https//HTTP server (unknown)/, 2000/open/tcp//cisco-sccp?///, 8010/open/tcp//ssl|http-proxy//FortiGuard Web Filtering/	Ignored State: filtered (991)
+# Nmap done at Wed Dec 17 12:11:20 2025 -- 1 IP address (1 host up) scanned in 221.30 seconds

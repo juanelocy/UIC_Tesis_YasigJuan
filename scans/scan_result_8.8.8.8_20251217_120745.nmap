@@ -1,0 +1,108 @@
+# Nmap 7.95 scan initiated Wed Dec 17 12:07:39 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251217_120745 8.8.8.8
+Nmap scan report for dns.google (8.8.8.8)
+Host is up (0.038s latency).
+Not shown: 991 filtered tcp ports (no-response)
+PORT     STATE  SERVICE        VERSION
+21/tcp   open   ftp?
+53/tcp   open   tcpwrapped
+80/tcp   open   http?
+110/tcp  open   pop3?
+113/tcp  closed ident
+143/tcp  open   imap?
+443/tcp  open   ssl/https      HTTP server (unknown)
+| http-server-header: 
+|   HTTP server (unknown)
+|_  scaffolding on HTTPServer2
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.0 302 Found
+|     X-Content-Type-Options: nosniff
+|     Access-Control-Allow-Origin: *
+|     Location: https://dns.google/nice%20ports%2C/Trinity.txt.bak
+|     Date: Wed, 17 Dec 2025 17:08:20 GMT
+|     Content-Type: text/html; charset=UTF-8
+|     Server: HTTP server (unknown)
+|     Content-Length: 247
+|     X-XSS-Protection: 0
+|     X-Frame-Options: SAMEORIGIN
+|     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+|     <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+|     <TITLE>302 Moved</TITLE></HEAD><BODY>
+|     <H1>302 Moved</H1>
+|     document has moved
+|     HREF="https://dns.google/nice%20ports%2C/Trinity.txt.bak">here</A>.
+|     </BODY></HTML>
+|   GetRequest: 
+|     HTTP/1.0 302 Found
+|     X-Content-Type-Options: nosniff
+|     Access-Control-Allow-Origin: *
+|     Location: https://dns.google/
+|     Date: Wed, 17 Dec 2025 17:08:19 GMT
+|     Content-Type: text/html; charset=UTF-8
+|     Server: HTTP server (unknown)
+|     Content-Length: 216
+|     X-XSS-Protection: 0
+|     X-Frame-Options: SAMEORIGIN
+|     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+|     <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+|     <TITLE>302 Moved</TITLE></HEAD><BODY>
+|     <H1>302 Moved</H1>
+|     document has moved
+|     HREF="https://dns.google/">here</A>.
+|     </BODY></HTML>
+|   HTTPOptions: 
+|     HTTP/1.0 302 Found
+|     X-Content-Type-Options: nosniff
+|     Location: https://dns.google/
+|     Date: Wed, 17 Dec 2025 17:08:20 GMT
+|     Content-Type: text/html; charset=UTF-8
+|     Server: HTTP server (unknown)
+|     Content-Length: 216
+|     X-XSS-Protection: 0
+|     X-Frame-Options: SAMEORIGIN
+|     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+|     <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+|     <TITLE>302 Moved</TITLE></HEAD><BODY>
+|     <H1>302 Moved</H1>
+|     document has moved
+|     HREF="https://dns.google/">here</A>.
+|_    </BODY></HTML>
+2000/tcp open   cisco-sccp?
+8010/tcp open   ssl/http-proxy FortiGuard Web Filtering
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port443-TCP:V=7.95%T=SSL%I=7%D=12/17%Time=6942E383%P=x86_64-pc-linux-gn
+SF:u%r(GetRequest,23A,"HTTP/1\.0\x20302\x20Found\r\nX-Content-Type-Options
+SF::\x20nosniff\r\nAccess-Control-Allow-Origin:\x20\*\r\nLocation:\x20http
+SF:s://dns\.google/\r\nDate:\x20Wed,\x2017\x20Dec\x202025\x2017:08:19\x20G
+SF:MT\r\nContent-Type:\x20text/html;\x20charset=UTF-8\r\nServer:\x20HTTP\x
+SF:20server\x20\(unknown\)\r\nContent-Length:\x20216\r\nX-XSS-Protection:\
+SF:x200\r\nX-Frame-Options:\x20SAMEORIGIN\r\nAlt-Svc:\x20h3=\":443\";\x20m
+SF:a=2592000,h3-29=\":443\";\x20ma=2592000\r\n\r\n<HTML><HEAD><meta\x20htt
+SF:p-equiv=\"content-type\"\x20content=\"text/html;charset=utf-8\">\n<TITL
+SF:E>302\x20Moved</TITLE></HEAD><BODY>\n<H1>302\x20Moved</H1>\nThe\x20docu
+SF:ment\x20has\x20moved\n<A\x20HREF=\"https://dns\.google/\">here</A>\.\r\
+SF:n</BODY></HTML>\r\n")%r(HTTPOptions,21A,"HTTP/1\.0\x20302\x20Found\r\nX
+SF:-Content-Type-Options:\x20nosniff\r\nLocation:\x20https://dns\.google/\
+SF:r\nDate:\x20Wed,\x2017\x20Dec\x202025\x2017:08:20\x20GMT\r\nContent-Typ
+SF:e:\x20text/html;\x20charset=UTF-8\r\nServer:\x20HTTP\x20server\x20\(unk
+SF:nown\)\r\nContent-Length:\x20216\r\nX-XSS-Protection:\x200\r\nX-Frame-O
+SF:ptions:\x20SAMEORIGIN\r\nAlt-Svc:\x20h3=\":443\";\x20ma=2592000,h3-29=\
+SF:":443\";\x20ma=2592000\r\n\r\n<HTML><HEAD><meta\x20http-equiv=\"content
+SF:-type\"\x20content=\"text/html;charset=utf-8\">\n<TITLE>302\x20Moved</T
+SF:ITLE></HEAD><BODY>\n<H1>302\x20Moved</H1>\nThe\x20document\x20has\x20mo
+SF:ved\n<A\x20HREF=\"https://dns\.google/\">here</A>\.\r\n</BODY></HTML>\r
+SF:\n")%r(FourOhFourRequest,278,"HTTP/1\.0\x20302\x20Found\r\nX-Content-Ty
+SF:pe-Options:\x20nosniff\r\nAccess-Control-Allow-Origin:\x20\*\r\nLocatio
+SF:n:\x20https://dns\.google/nice%20ports%2C/Trinity\.txt\.bak\r\nDate:\x2
+SF:0Wed,\x2017\x20Dec\x202025\x2017:08:20\x20GMT\r\nContent-Type:\x20text/
+SF:html;\x20charset=UTF-8\r\nServer:\x20HTTP\x20server\x20\(unknown\)\r\nC
+SF:ontent-Length:\x20247\r\nX-XSS-Protection:\x200\r\nX-Frame-Options:\x20
+SF:SAMEORIGIN\r\nAlt-Svc:\x20h3=\":443\";\x20ma=2592000,h3-29=\":443\";\x2
+SF:0ma=2592000\r\n\r\n<HTML><HEAD><meta\x20http-equiv=\"content-type\"\x20
+SF:content=\"text/html;charset=utf-8\">\n<TITLE>302\x20Moved</TITLE></HEAD
+SF:><BODY>\n<H1>302\x20Moved</H1>\nThe\x20document\x20has\x20moved\n<A\x20
+SF:HREF=\"https://dns\.google/nice%20ports%2C/Trinity\.txt\.bak\">here</A>
+SF:\.\r\n</BODY></HTML>\r\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Dec 17 12:11:20 2025 -- 1 IP address (1 host up) scanned in 221.30 seconds

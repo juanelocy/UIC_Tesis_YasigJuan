@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Wed Dec 17 12:24:16 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_10.41.2.62_20251217_122445 10.41.2.62
+Host: 10.41.2.62 ()	Status: Up
+Host: 10.41.2.62 ()	Ports: 49152/open/tcp/////, 62078/open/tcp//tcpwrapped///	Ignored State: closed (998)
+# Nmap done at Wed Dec 17 12:27:02 2025 -- 1 IP address (1 host up) scanned in 166.50 seconds

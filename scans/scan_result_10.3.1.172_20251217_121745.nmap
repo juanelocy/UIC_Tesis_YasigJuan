@@ -1,0 +1,2 @@
+# Nmap 7.95 scan initiated Wed Dec 17 12:17:14 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_10.3.1.172_20251217_121745 10.3.1.172
+# Nmap done at Wed Dec 17 12:17:17 2025 -- 1 IP address (0 hosts up) scanned in 3.17 seconds

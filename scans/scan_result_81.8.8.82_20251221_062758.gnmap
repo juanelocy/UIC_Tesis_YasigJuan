@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Sun Dec 21 00:27:58 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_81.8.8.82_20251221_062758 81.8.8.82
+Host: 81.8.8.82 ()	Status: Up
+Host: 81.8.8.82 ()	Ports: 2038/open/tcp//ssh//OpenSSH 9.4 (protocol 2.0)/	Ignored State: filtered (999)
+# Nmap done at Sun Dec 21 00:28:03 2025 -- 1 IP address (1 host up) scanned in 5.06 seconds

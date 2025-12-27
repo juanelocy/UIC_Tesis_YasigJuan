@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Thu Nov 20 09:20:10 2025 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_8.8.8.8_20251120_152010 8.8.8.8
+Host: 8.8.8.8 (dns.google)	Status: Up
+Host: 8.8.8.8 (dns.google)	Ports: 53/open/tcp//tcpwrapped///, 443/open/tcp//ssl|https//HTTP server (unknown)/	Ignored State: filtered (998)
+# Nmap done at Thu Nov 20 09:21:31 2025 -- 1 IP address (1 host up) scanned in 81.73 seconds

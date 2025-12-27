@@ -59,7 +59,9 @@ function handleScanAjax(event) {
         .then(res => res.json())
         .then(data => {
             showLoadingState(false);
+            
             if (data.success) {
+                showPdfButton(data);
                 showMessage('success', '✓ Escaneo completado.');
                 let html = '';
                 // Mostrar tabla de puertos si existen

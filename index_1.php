@@ -11,39 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        /* Botón flotante PDF */
-        #pdfFloatBtn {
-            position: fixed;
-            right: 32px;
-            bottom: 32px;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: #e53935;
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-            font-size: 2rem;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.35s cubic-bezier(.4, 0, .2, 1);
-        }
-
-        #pdfFloatBtn.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #pdfFloatBtn:hover {
-            background: #b71c1c;
-        }
-    </style>
 </head>
 
 <body>
@@ -306,61 +273,6 @@
                 document.getElementById('iaPromptInput').disabled = true;
             });
 
-            // ...existing code...
-
-            // --- PDF FLOATING BUTTON LOGIC ---
-            let lastScanData = null; // Guarda el último resultado de escaneo en JSON
-
-            // Llama a esta función cuando el escaneo termine exitosamente
-            function showPdfButton(scanData) {
-                lastScanData = scanData;
-                const btn = document.getElementById('pdfFloatBtn');
-                btn.classList.add('visible');
-            }
-
-            // Oculta el botón al iniciar un nuevo escaneo
-            function hidePdfButton() {
-                lastScanData = null;
-                document.getElementById('pdfFloatBtn').classList.remove('visible');
-            }
-
-            // Maneja la descarga del PDF
-            document.getElementById('pdfFloatBtn').addEventListener('click', function() {
-                if (!lastScanData) return;
-                const formData = new FormData();
-                formData.append('scanData', JSON.stringify(lastScanData));
-                fetch('generar_pdf.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(resp => resp.blob())
-                    .then(blob => {
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'resultado_escaneo.pdf';
-                        document.body.appendChild(a);
-                        a.click();
-                        setTimeout(() => {
-                            window.URL.revokeObjectURL(url);
-                            a.remove();
-                        }, 100);
-                    });
-            });
-
-            // Ejemplo: Llama showPdfButton(scanData) cuando el escaneo termina
-            // y hidePdfButton() cuando se inicia uno nuevo
-
-            // Si tu main.js o lógica de escaneo ya tiene un callback al finalizar, llama showPdfButton(scanData) ahí.
-            // Por ejemplo, después de mostrar el resultado del escaneo:
-            window.showPdfButton = showPdfButton;
-            window.hidePdfButton = hidePdfButton;
-
-            // Al iniciar un nuevo escaneo:
-            document.getElementById('scanForm').addEventListener('submit', function() {
-                hidePdfButton();
-            });
-
         });
     </script>
     <div id="iaChatContainer" style="display:none; width:100%; max-width:1250px; margin:40px auto 0 auto;" class="row justify-content-center">
@@ -418,11 +330,6 @@
             </small>
         </div>
     </footer>
-
-    <!-- Botón flotante PDF -->
-    <button id="pdfFloatBtn" title="Descargar PDF">
-        <i class="fas fa-file-pdf"></i>
-    </button>
 </body>
 
 </html>
