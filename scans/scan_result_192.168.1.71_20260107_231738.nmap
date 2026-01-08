@@ -1,0 +1,11 @@
+# Nmap 7.98 scan initiated Wed Jan  7 17:17:38 2026 as: /usr/lib/nmap/nmap --privileged --script vulners -sV -oA /opt/lampp/htdocs/tesis/scans/scan_result_192.168.1.71_20260107_231738 192.168.1.71
+Nmap scan report for 192.168.1.71
+Host is up (0.19s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT      STATE SERVICE    VERSION
+49152/tcp open  unknown
+62078/tcp open  tcpwrapped
+MAC Address: C6:5F:BA:69:55:EC (Unknown)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jan  7 17:21:22 2026 -- 1 IP address (1 host up) scanned in 224.19 seconds

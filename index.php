@@ -219,6 +219,23 @@
                     role,
                     text
                 });
+                // Si es la primera respuesta de la IA, guardar y mostrar el botón PDF
+                if (role === '🤖 IA' && iaChatHistory.filter(m => m.role === '🤖 IA').length === 1) {
+                    // Quitar etiquetas HTML y convertir saltos de línea correctamente
+                    let plainText = text;
+                    if (isIAHtml) {
+                        // Quitar etiquetas Markdown simples y HTML
+                        plainText = plainText.replace(/<br\s*\/?>(\n)?/gi, "\n");
+                        plainText = plainText.replace(/<[^>]+>/g, '');
+                        // Quitar ** y * de Markdown
+                        plainText = plainText.replace(/\*\*([^*]+)\*\*/g, '$1');
+                        plainText = plainText.replace(/\*([^*]+)\*/g, '$1');
+                    }
+                    firstIAResponse = plainText;
+                    if (lastScanData) {
+                        showPdfButton(lastScanData);
+                    }
+                }
                 const chat = document.getElementById('iaChat');
                 let html = '';
                 iaChatHistory.forEach((msg, idx) => {
@@ -310,6 +327,8 @@
 
             // --- PDF FLOATING BUTTON LOGIC ---
             let lastScanData = null; // Guarda el último resultado de escaneo en JSON
+            // Guarda la primera respuesta de la IA
+            let firstIAResponse = null;
 
             // Llama a esta función cuando el escaneo termine exitosamente
             function showPdfButton(scanData) {
@@ -321,6 +340,7 @@
             // Oculta el botón al iniciar un nuevo escaneo
             function hidePdfButton() {
                 lastScanData = null;
+                firstIAResponse = null;
                 document.getElementById('pdfFloatBtn').classList.remove('visible');
             }
 
@@ -329,6 +349,9 @@
                 if (!lastScanData) return;
                 const formData = new FormData();
                 formData.append('scanData', JSON.stringify(lastScanData));
+                if (firstIAResponse) {
+                    formData.append('iaResponse', firstIAResponse);
+                }
                 fetch('generar_pdf.php', {
                         method: 'POST',
                         body: formData
@@ -346,6 +369,14 @@
                             a.remove();
                         }, 100);
                     });
+                            // Si es la primera respuesta de la IA, guardar y mostrar el botón PDF
+                            if (role === '🤖 IA' && iaChatHistory.filter(m => m.role === '🤖 IA').length === 0) {
+                                firstIAResponse = isIAHtml ? text.replace(/<br>/g, '\n') : text;
+                                // Solo mostrar el botón si hay datos de escaneo
+                                if (lastScanData) {
+                                    showPdfButton(lastScanData);
+                                }
+                            }
             });
 
             // Ejemplo: Llama showPdfButton(scanData) cuando el escaneo termina

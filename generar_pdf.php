@@ -75,6 +75,33 @@ class PDF extends FPDF
         }
         return $nl;
     }
+
+    // Método para dibujar el encabezado de la tabla
+    function TableHeader()
+    {
+        $this->SetFillColor(20, 101, 81); // #146551
+        $this->SetTextColor(255, 255, 255);
+        $this->SetFont('Arial', 'B', 9);
+        $this->Cell(16, 7, 'Puerto', 1, 0, 'C', true);
+        $this->Cell(20, 7, 'Protocolo', 1, 0, 'C', true);
+        $this->Cell(25, 7, 'Estado', 1, 0, 'C', true);
+        $this->Cell(30, 7, 'Servicio', 1, 0, 'C', true);
+        $this->Cell(45, 7, 'Producto', 1, 0, 'C', true);
+        $this->Cell(30, 7, utf8_decode('Versión'), 1, 0, 'C', true);
+        $this->Cell(25, 7, 'Total CVEs', 1, 1, 'C', true);
+    }
+
+    // Método para verificar si hay espacio suficiente y agregar página si es necesario
+    function CheckPageBreak($height)
+    {
+        // Si la altura de la fila excede el espacio restante, añadir nueva página
+        if ($this->GetY() + $height > $this->PageBreakTrigger) {
+            $this->AddPage($this->CurOrientation);
+            $this->TableHeader(); // Redibujar encabezado en la nueva página
+            return true;
+        }
+        return false;
+    }
 }
 
 $pdf = new PDF();
@@ -139,6 +166,34 @@ $pdf->Cell($valueWidth, 7, utf8_decode($total_cves), 0, 1, 'L');
 
 $pdf->Ln(2);
 
+// Si viene la respuesta de la IA, mostrarla antes de la tabla
+if (!empty($_POST['iaResponse'])) {
+    $iaResponse = trim($_POST['iaResponse']);
+    $pdf->SetFont('Arial', 'B', 11);
+    $pdf->SetTextColor(38, 92, 75);
+    $pdf->Cell(0, 8, utf8_decode('Recomendación de Mitigación (IA)'), 0, 1);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->SetTextColor(40, 40, 40);
+    // Procesar formato Markdown simple: negrita (**), listas (*, -)
+    $lines = preg_split('/\r?\n/', $iaResponse);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        // Negrita Markdown
+        if (preg_match('/^\*\*(.+)\*\*$/', $line, $m)) {
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->MultiCell(0, 7, utf8_decode($m[1]));
+            $pdf->SetFont('Arial', '', 10);
+        } elseif (preg_match('/^\* (.+)$/', $line, $m) || preg_match('/^- (.+)$/', $line, $m)) {
+            $pdf->Cell(5, 7, chr(149), 0, 0, 'L');
+            $pdf->MultiCell(0, 7, utf8_decode($m[1]));
+        } else {
+            $pdf->MultiCell(0, 7, utf8_decode($line));
+        }
+    }
+    $pdf->Ln(2);
+}
+$pdf->Ln(2);
+
 // Tabla de puertos y servicios (con columna de total de CVEs)
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetTextColor(38, 92, 75);
@@ -147,66 +202,67 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->SetTextColor(30, 30, 30);
 
 if (!empty($puertos)) {
-    $pdf->SetFillColor(20, 101, 81); // #146551
-    $pdf->SetTextColor(255, 255, 255);
-    $pdf->Cell(16, 7, 'Puerto', 1, 0, 'C', true);
-    $pdf->Cell(20, 7, 'Protocolo', 1, 0, 'C', true);
-    $pdf->Cell(25, 7, 'Estado', 1, 0, 'C', true);
-    $pdf->Cell(30, 7, 'Servicio', 1, 0, 'C', true);
-    $pdf->Cell(45, 7, 'Producto', 1, 0, 'C', true);
-    $pdf->Cell(30, 7, utf8_decode('Versión'), 1, 0, 'C', true);
-    $pdf->Cell(25, 7, 'Total CVEs', 1, 1, 'C', true);
+    // Dibujar encabezado de tabla
+    $pdf->TableHeader();
 
     $pdf->SetFont('Arial', '', 9);
     $pdf->SetTextColor(30, 30, 30);
-    foreach ($puertos as $p) {
-    $num_cves = !empty($p['cves']) ? count($p['cves']) : 0;
-
-    // Prepara los textos
-    $row = [
-        $p['portid'],
-        $p['protocol'],
-        $p['state'],
-        utf8_decode($p['service']),
-        utf8_decode($p['product']),
-        utf8_decode($p['version']),
-        $num_cves
-    ];
+    
     // Anchos de cada columna
     $widths = [16, 20, 25, 30, 45, 30, 25];
+    
+    foreach ($puertos as $p) {
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->SetTextColor(30, 30, 30);
+        $num_cves = !empty($p['cves']) ? count($p['cves']) : 0;
 
-    // Calcula la altura máxima de la fila
-    $maxLines = 1;
-    for ($i = 0; $i < count($row); $i++) {
-        $nb = $pdf->NbLines($widths[$i], $row[$i]);
-        if ($nb > $maxLines) $maxLines = $nb;
+        // Prepara los textos
+        $row = [
+            $p['portid'],
+            $p['protocol'],
+            $p['state'],
+            utf8_decode($p['service']),
+            utf8_decode($p['product']),
+            utf8_decode($p['version']),
+            $num_cves
+        ];
+
+        // Calcula la altura máxima de la fila
+        $maxLines = 1;
+        for ($i = 0; $i < count($row); $i++) {
+            $nb = $pdf->NbLines($widths[$i], $row[$i]);
+            if ($nb > $maxLines) $maxLines = $nb;
+        }
+        $rowHeight = 7 * $maxLines;
+
+        // Verificar si hay espacio suficiente para esta fila
+        $pdf->CheckPageBreak($rowHeight);
+
+        // Guarda la posición inicial
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+
+        // Dibuja cada celda de la fila con la misma altura
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->SetTextColor(30, 30, 30);
+        for ($i = 0; $i < count($row); $i++) {
+            $align = ($i == 0 || $i == 1 || $i == 2 || $i == 6) ? 'C' : 'L';
+            // Guarda la posición antes de escribir
+            $cellX = $pdf->GetX();
+            $cellY = $pdf->GetY();
+
+            // Dibuja el borde de la celda
+            $pdf->Rect($cellX, $cellY, $widths[$i], $rowHeight);
+
+            // Escribe el texto usando MultiCell, pero sin salto de línea automático
+            $pdf->MultiCell($widths[$i], 7, $row[$i], 0, $align);
+
+            // Mueve el cursor a la derecha de la celda actual
+            $pdf->SetXY($cellX + $widths[$i], $cellY);
+        }
+        // Salto de línea para la siguiente fila
+        $pdf->SetXY($x, $y + $rowHeight);
     }
-    $rowHeight = 7 * $maxLines;
-
-    // Guarda la posición inicial
-    $x = $pdf->GetX();
-    $y = $pdf->GetY();
-
-    // Dibuja cada celda de la fila con la misma altura
-    for ($i = 0; $i < count($row); $i++) {
-        $align = ($i == 0 || $i == 1 || $i == 2 || $i == 6) ? 'C' : 'L';
-        // Guarda la posición antes de escribir
-        $cellX = $pdf->GetX();
-        $cellY = $pdf->GetY();
-
-        // Dibuja el borde de la celda
-        $pdf->Rect($cellX, $cellY, $widths[$i], $rowHeight);
-
-        // Escribe el texto usando MultiCell, pero sin salto de línea automático
-        $pdf->MultiCell($widths[$i], 7, $row[$i], 0, $align);
-
-        // Mueve el cursor a la derecha de la celda actual
-        $pdf->SetXY($cellX + $widths[$i], $cellY);
-    }
-    // Salto de línea para la siguiente fila
-    $pdf->SetXY($x, $y + $rowHeight);
-}
-
     
 } else {
     $pdf->Cell(0, 8, 'No se detectaron puertos abiertos.', 0, 1);
