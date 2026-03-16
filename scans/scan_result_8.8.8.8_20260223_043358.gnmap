@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Mon Feb 23 04:33:58 2026 as: nmap --script vulners -sV -oA /var/www/html/scans/scan_result_8.8.8.8_20260223_043358 8.8.8.8
+Host: 8.8.8.8 (dns.google)	Status: Up
+Host: 8.8.8.8 (dns.google)	Ports: 53/open/tcp//tcpwrapped///, 443/open/tcp//ssl|https//HTTP server (unknown)/	Ignored State: filtered (998)
+# Nmap done at Mon Feb 23 04:35:29 2026 -- 1 IP address (1 host up) scanned in 90.34 seconds

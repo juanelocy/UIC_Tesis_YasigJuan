@@ -313,8 +313,8 @@ estilos del chat con la IA
 .msg-ia {
     max-width: 75%;
     margin-right: auto;
-    background: linear-gradient(90deg, #8FC1B5 60%, #265C4B 100%);
-    color: #222;
+    background: linear-gradient(90deg, #265C4B 60%, #265C4B 100%);
+    color: #ffffff;
     border-radius: 1.2rem 1.2rem 1.2rem 0;
     padding: 12px 18px;
     margin-bottom: 12px;

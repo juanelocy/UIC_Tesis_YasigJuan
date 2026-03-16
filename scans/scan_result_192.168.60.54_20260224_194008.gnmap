@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Tue Feb 24 19:40:08 2026 as: nmap --script vulners -sV -oA /var/www/html/scans/scan_result_192.168.60.54_20260224_194008 192.168.60.54
+Host: 192.168.60.54 ()	Status: Up
+Host: 192.168.60.54 ()	Ports: 49152/open/tcp/////, 62078/open/tcp//tcpwrapped///	Ignored State: closed (998)
+# Nmap done at Tue Feb 24 19:43:16 2026 -- 1 IP address (1 host up) scanned in 188.25 seconds

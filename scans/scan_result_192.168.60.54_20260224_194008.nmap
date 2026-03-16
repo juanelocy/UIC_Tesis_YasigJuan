@@ -1,0 +1,10 @@
+# Nmap 7.95 scan initiated Tue Feb 24 19:40:08 2026 as: nmap --script vulners -sV -oA /var/www/html/scans/scan_result_192.168.60.54_20260224_194008 192.168.60.54
+Nmap scan report for 192.168.60.54
+Host is up (0.0100s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT      STATE SERVICE    VERSION
+49152/tcp open  unknown
+62078/tcp open  tcpwrapped
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Feb 24 19:43:16 2026 -- 1 IP address (1 host up) scanned in 188.25 seconds
